@@ -6,6 +6,7 @@
 - [Setup](#setup)
 - [Usage](#usage)
 - [Making Changes](#making-changes)
+- [Thanks](#thanks)
 - [License](#license)
 
 # Requirements
@@ -76,6 +77,12 @@ $ npm run typecheck # type check without modifying files
 $ npm run check     # scan without modifying files
 $ npm run fix       # modify files
 ```
+
+# Thanks
+
+Big thanks to:
+
+- [GitHub - tanabee/genkit-summarize-webpage](https://github.com/tanabee/genkit-summarize-webpage)
 
 # License
 
