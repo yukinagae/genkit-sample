@@ -9,7 +9,7 @@
 - [Thanks](#thanks)
 - [License](#license)
 
-# Requirements
+## Requirements
 
 Before you start, make sure you have these installed:
 
@@ -30,7 +30,7 @@ $ genkit --version # the below version is on my environment
 0.5.4
 ```
 
-# Setup
+## Setup
 
 **Install Project Dependencies**: Open your terminal, navigate to this project's folder, and run:
 
@@ -38,7 +38,7 @@ $ genkit --version # the below version is on my environment
 $ npm install
 ```
 
-# Usage
+## Usage
 
 1. **Set the `OPENAI_API_KEY` Environment Variable**
 
@@ -58,9 +58,9 @@ $ npm run genkit
 
 Now you can play with it!
 
-# Making Changes
+## Making Changes
 
-## Building the Project
+### Building the Project
 
 After making changes, you might need to build the project to see your changes in action:
 
@@ -68,7 +68,7 @@ After making changes, you might need to build the project to see your changes in
 $ npm run build
 ```
 
-## Formatting and Linting
+### Formatting and Linting
 
 To ensure your code follows the project's coding standards, run the formatting and linting tools:
 
@@ -78,12 +78,12 @@ $ npm run check     # scan without modifying files
 $ npm run fix       # modify files
 ```
 
-# Thanks
+## Thanks
 
 Big thanks to:
 
 - [GitHub - tanabee/genkit-summarize-webpage](https://github.com/tanabee/genkit-summarize-webpage)
 
-# License
+## License
 
 MIT
