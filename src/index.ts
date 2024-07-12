@@ -11,7 +11,7 @@ configureGenkit({
   // Use the OpenAI plugin with the provided API key.
   // Ensure the OPENAI_API_KEY environment variable is set before running.
   plugins: [openAI({ apiKey: process.env.OPENAI_API_KEY })],
-  // Log debug output to tbe console.
+  // Log debug output to the console.
   logLevel: 'debug',
   // Perform OpenTelemetry instrumentation and enable trace collection.
   enableTracingAndMetrics: true,
@@ -49,7 +49,7 @@ export const summarizeFlow = defineFlow(
   },
   async (url: string) => {
     const llmResponse = await generate({
-      prompt: `First, fetch this link: "${url}". Then, summarize the content within 100 words.`,
+      prompt: `First, fetch this link: "${url}". Then, summarize the content within 20 words.`,
       model: gpt4o, // Specify the model to use for generation
       tools: [webLoader], // Include the webLoader tool defined earlier for fetching webpage content
       config: {
