@@ -16,7 +16,7 @@ Before you start, make sure you have these installed:
 - **npm**
 - **Genkit**
 
-🔗 For Genkit installation, see the [official guide](https://firebase.google.com/docs/genkit/get-started).
+For Genkit installation, see the [official guide](https://firebase.google.com/docs/genkit/get-started).
 
 Check your installations by running:
 
@@ -31,18 +31,10 @@ $ genkit --version # the below version is on my environment
 
 # Setup
 
-1. **Install Project Dependencies**: Open your terminal, navigate to this project's folder, and run:
+**Install Project Dependencies**: Open your terminal, navigate to this project's folder, and run:
 
 ```bash
 $ npm install
-```
-
-This command sets up everything you need to run the project.
-
-- Build the project
-
-```bash
-$ npm run build
 ```
 
 # Usage
