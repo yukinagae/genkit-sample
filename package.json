@@ -1,0 +1,30 @@
+{
+  "name": "genkit-sample",
+  "version": "0.0.0",
+  "main": "lib/index.js",
+  "author": "yukinagae <yuki.nagae1130@gmail.com>",
+  "license": "MIT",
+  "engines": {
+    "node": "22"
+  },
+  "scripts": {
+    "build": "tsc",
+    "typecheck": "tsc --noEmit",
+    "check": "biome check ./src",
+    "fix": "biome check --write ./src",
+    "genkit": "genkit start -o"
+  },
+  "dependencies": {
+    "@genkit-ai/ai": "^0.5.4",
+    "@genkit-ai/core": "^0.5.4",
+    "@genkit-ai/flow": "^0.5.4",
+    "cheerio": "1.0.0-rc.12",
+    "genkitx-openai": "^0.10.0",
+    "zod": "^3.23.8"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^1.8.3",
+    "tsx": "^4.16.2",
+    "typescript": "^5.5.3"
+  }
+}
