@@ -2,6 +2,10 @@
 
 このチュートリアルでは、Firebase Genkit の基本原理を探り、開発プロセスをどのように向上させるかを説明します。
 
+備考: 以下英語記事の翻訳版なので、日本語として言い回し変なところあるかもですが、ご了承ください(´・ω・｀)汗
+
+https://medium.com/@yukinagae/your-first-guide-to-getting-started-with-firebase-genkit-6948d88e8a92
+
 ## 急いでいる人のためのクイックスタート
 
 詳細を読むことなく Firebase Genkit をすぐに始めたい方のために、 [genkit-sample](https://github.com/yukinagae/genkit-sample) プロジェクトをご用意しました。
@@ -73,9 +77,9 @@ plugins: [openAI()],
 plugins: [openAI({ apiKey: process.env.OPENAI_API_KEY })],
 ```
 
-### 2. 最初のフローの作成
+### 2. 最初の Flow の作成
 
-「フロー」とは、アプリが何かを行うためのステップのことです。ここでは、簡単なフローを設定する方法を紹介します。
+「Flow」とは、アプリが何かを行うためのステップのことです。ここでは、簡単な Flow を設定する方法を紹介します。
 
 ```typescript
 import { defineFlow } from "@genkit-ai/flow";
@@ -107,7 +111,7 @@ export const summarizeFlow = defineFlow(
 
 ### 3. Genkit サーバーの起動
 
-最初のフローが準備できたら、それを実際に動かしてみましょう。Genkit サーバーを起動するための手順を案内します。
+最初の Flow が準備できたら、それを実際に動かしてみましょう。Genkit サーバーを起動するための手順を案内します。
 
 Firebase Genkit を起動してそのグラフィカルユーザーインターフェースを探索するには、ターミナルで以下のコマンドを実行します。
 
@@ -123,9 +127,9 @@ $ npm run genkit
 
 **注**: `Error: please pass in the API key or set the OPENAI_API_KEY environment variable` というエラーメッセージが表示された場合、`OPENAI_API_KEY` が正しく設定されていないことを示しています。
 
-### 4. フローの実行
+### 4. Flow の実行
 
-ガイドの左サイドバーで Flow セクションを見つけて、summarizeFlow フローを選択します。
+ガイドの左サイドバーで Flow セクションを見つけて、summarizeFlow Flow を選択します。
 
 ![Genkit GUI - input flow](https://raw.githubusercontent.com/yukinagae/genkit-sample/main/docs/2.png)
 
@@ -147,9 +151,9 @@ Haiku, a Japanese poetry form, expresses nature and emotions in 17 syllables (5-
 
 おめでとうございます！セットアップが正しく構成され、正常に動作しています。
 
-### 5. フローにさらに機能を追加する
+### 5. Flow にさらに機能を追加する
 
-基本的なフローに慣れてきたら、さらに機能を追加してみましょう。新しいステップや「ツール」を追加して、アプリをより興味深いものにすることができます。
+基本的な Flow に慣れてきたら、さらに機能を追加してみましょう。新しいステップや「ツール」を追加して、アプリをより興味深いものにすることができます。
 
 次のステップでは、新しいツール webLoader を定義します。このツールは、Web コンテンツを取得する役割を果たします。これは、URL を入力として受け取り、ウェブページのテキストコンテンツを返すステートレスな関数です。
 
@@ -181,7 +185,7 @@ const webLoader = defineTool(
 );
 ```
 
-webLoader ツールを定義した後、既存のフロー summarizeFlow に組み込みます。このフローは、URL 入力に基づいてコンテンツを取得し要約するために webLoader を利用します。
+webLoader ツールを定義した後、既存の Flow summarizeFlow に組み込みます。この Flow は、URL 入力に基づいてコンテンツを取得し要約するために webLoader を利用します。
 
 ```typescript
 import { defineFlow } from "@genkit-ai/flow";
@@ -209,9 +213,9 @@ export const summarizeFlow = defineFlow(
 );
 ```
 
-### 6. 強化されたフローの実行
+### 6. 強化された Flow の実行
 
-フローに新機能を追加した後、その機能をテストすることが重要です。Genkit サーバーを再起動するか、すでに実行中の場合はブラウザをリフレッシュしてください。
+Flow に新機能を追加した後、その機能をテストすることが重要です。Genkit サーバーを再起動するか、すでに実行中の場合はブラウザをリフレッシュしてください。
 
 リフレッシュ後、左サイドバーに webLoader ツールが表示されるのがわかります。このツールをクリックすると、その入力ページに移動し、Genkit GUI の優れた機能の一つである各ツールの個別実行とテストが可能になります。
 
@@ -257,13 +261,13 @@ TRPCClientError: fetch failed
 "Jump to content\n\n\t\n\t\t\n\t\t\t\n\t\t\t\t\n\n\t\n\t\n\nMain menu\n\t\n\t\n\n\n\t\t\t\t\n\t\t\n\n\t\n\tMain menu\n\tmove to sidebar\n\thide\n\n\n\t\n\n\t\n\t\tNavigation\n\t\n\t\n\t\t\n\t\t\n\t\t\t\n\t\t\tMain pageContentsCurrent eventsRandom articleAbout WikipediaContact usDonate\n\t\t\n\t\t\n\t\n\n\n\t\n\t\n\n\t\n\t\tContribute\n\t\n\t\n\t\t\n\t\t\n\t\t\t\n\t\t\tHelpLearn to editCommunity portalRecent changesUpload
 ```
 
-フローの効果をさらに検証するため、summarizeFlow に直接 URL を入力してみましょう。
+Flow の効果をさらに検証するため、summarizeFlow に直接 URL を入力してみましょう。
 
 ```json
 "https://en.wikipedia.org/wiki/Haiku"
 ```
 
-結果は簡潔で有益な要約であり、フローの情報を凝縮する能力を示しています。
+結果は簡潔で有益な要約であり、Flow の情報を凝縮する能力を示しています。
 
 ```text
 Haiku is a traditional Japanese poetic form consisting of three lines with a 5-7-5 syllable structure, often evoking nature.
@@ -271,11 +275,11 @@ Haiku is a traditional Japanese poetic form consisting of three lines with a 5-7
 
 ![Genkit GUI - result flow with tool](https://raw.githubusercontent.com/yukinagae/genkit-sample/main/docs/6.png)
 
-最後に、入力がどのように処理されたかの詳細を知るために、ヘッダーの Inspect セクションをクリックします。トレースでは、フローがコンテンツを取得するために webLoader ツールを使用していることが示され、フローの実行ステップが表示されます。
+最後に、入力がどのように処理されたかの詳細を知るために、ヘッダーの Inspect セクションをクリックします。トレースでは、Flow がコンテンツを取得するために webLoader ツールを使用していることが示され、Flow の実行ステップが表示されます。
 
 ![Genkit GUI - inspect flow](https://raw.githubusercontent.com/yukinagae/genkit-sample/main/docs/7.png)
 
-基本的な使い方を理解したので、さらにフローやツールを探索してみましょう。実践的な開始点として、 [genkit-sample](https://github.com/yukinagae/genkit-sample) をチェックして、Firebase Genkit を学習目的で実行することをお勧めします。
+基本的な使い方を理解したので、さらに Flow やツールを探索してみましょう。実践的な開始点として、 [genkit-sample](https://github.com/yukinagae/genkit-sample) をチェックして、Firebase Genkit を学習目的で実行することをお勧めします。
 
 https://github.com/yukinagae/genkit-sample
 
