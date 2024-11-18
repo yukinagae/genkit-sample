@@ -51,17 +51,17 @@ Firebase Genkit を初めて使う方のために、基本的な設定方法や�
 まず、Genkit の設定を行います。
 
 ```typescript
-import { configureGenkit } from "@genkit-ai/core";
+import { genkit, z } from "genkit";
 import { gpt4o, openAI } from "genkitx-openai";
 
-configureGenkit({
+// コンソールにデバッグ出力をログ記録します。
+import { logger } from "genkit/logging";
+logger.setLogLevel("debug");
+
+const ai = genkit({
   // 提供されたAPIキーを使用してOpenAIプラグインを使用します。
   // 実行前にOPENAI_API_KEY環境変数が設定されていることを確認します。
   plugins: [openAI({ apiKey: process.env.OPENAI_API_KEY })],
-  // コンソールにデバッグ出力をログ記録します。
-  logLevel: "debug",
-  // OpenTelemetryの計測とトレース収集を有効にします。
-  enableTracingAndMetrics: true,
 });
 ```
 
@@ -82,18 +82,16 @@ plugins: [openAI({ apiKey: process.env.OPENAI_API_KEY })],
 「Flow」とは、アプリが何かを行うためのステップのことです。ここでは、簡単な Flow を設定する方法を紹介します。
 
 ```typescript
-import { defineFlow } from "@genkit-ai/flow";
-import { generate } from "@genkit-ai/ai";
 import { gpt4o, openAI } from "genkitx-openai";
 
-export const summarizeFlow = defineFlow(
+export const summarizeFlow = ai.defineFlow(
   {
     name: "summarizeFlow",
     inputSchema: z.string(),
     outputSchema: z.string(),
   },
   async (content: string) => {
-    const llmResponse = await generate({
+    const llmResponse = await ai.generate({
       prompt: `Summarize the ${content} within 20 words.`,
       model: gpt4o, // 使用するモデルを指定
       tools: [],
@@ -102,7 +100,7 @@ export const summarizeFlow = defineFlow(
       },
     });
 
-    return llmResponse.text();
+    return llmResponse.text;
   }
 );
 ```
@@ -116,7 +114,7 @@ export const summarizeFlow = defineFlow(
 Firebase Genkit を起動してそのグラフィカルユーザーインターフェースを探索するには、ターミナルで以下のコマンドを実行します。
 
 ```bash
-$ genkit start -o
+$ genkit start -o -- npx tsx src/index.ts
 # または
 $ npm run genkit
 ```
@@ -158,11 +156,7 @@ Haiku, a Japanese poetry form, expresses nature and emotions in 17 syllables (5-
 次のステップでは、新しいツール webLoader を定義します。このツールは、Web コンテンツを取得する役割を果たします。これは、URL を入力として受け取り、ウェブページのテキストコンテンツを返すステートレスな関数です。
 
 ```typescript
-import * as z from "zod";
-
-import { defineTool, generate } from "@genkit-ai/ai";
-
-const webLoader = defineTool(
+const webLoader = ai.defineTool(
   {
     name: "webLoader",
     description: "Loads a webpage and returns the textual content.",
@@ -188,18 +182,16 @@ const webLoader = defineTool(
 webLoader ツールを定義した後、既存の Flow summarizeFlow に組み込みます。この Flow は、URL 入力に基づいてコンテンツを取得し要約するために webLoader を利用します。
 
 ```typescript
-import { defineFlow } from "@genkit-ai/flow";
-import { generate } from "@genkit-ai/ai";
 import { gpt4o, openAI } from "genkitx-openai";
 
-export const summarizeFlow = defineFlow(
+export const summarizeFlow = ai.defineFlow(
   {
     name: "summarizeFlow",
     inputSchema: z.string(),
     outputSchema: z.string(),
   },
   async (url: string) => {
-    const llmResponse = await generate({
+    const llmResponse = await ai.generate({
       prompt: `First, fetch this link: "${url}". Then, summarize the content within 20 words.`,
       model: gpt4o, // 使用するモデルを指定
       tools: [webLoader], // 先に定義したwebLoaderツールを含む
@@ -208,7 +200,7 @@ export const summarizeFlow = defineFlow(
       },
     });
 
-    return llmResponse.text();
+    return llmResponse.text;
   }
 );
 ```

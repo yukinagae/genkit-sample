@@ -12,15 +12,12 @@
     "typecheck": "tsc --noEmit",
     "check": "biome check ./src",
     "fix": "biome check --write ./src",
-    "genkit": "genkit start -o"
+    "genkit": "genkit start -o -- npx tsx src/index.ts"
   },
   "dependencies": {
-    "@genkit-ai/ai": "^0.5.4",
-    "@genkit-ai/core": "^0.5.4",
-    "@genkit-ai/flow": "^0.5.4",
     "cheerio": "1.0.0-rc.12",
-    "genkitx-openai": "^0.10.0",
-    "zod": "^3.23.8"
+    "genkit": "^0.9.1",
+    "genkitx-openai": "^0.11.0"
   },
   "devDependencies": {
     "@biomejs/biome": "^1.8.3",

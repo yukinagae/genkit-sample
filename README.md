@@ -23,11 +23,11 @@ Check your installations by running:
 
 ```bash
 $ node --version # the below version is on my environment
-v22.4.1
+v22.7.0
 $ npm --version # the below version is on my environment
-10.7.0
+10.8.2
 $ genkit --version # the below version is on my environment
-0.5.4
+0.9.1
 ```
 
 ## Setup

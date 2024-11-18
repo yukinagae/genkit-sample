@@ -47,17 +47,17 @@ For those new to Firebase Genkit and eager to learn more about what it can do, t
 First things first, we need to configure Genkit settings.
 
 ```typescript
-import { configureGenkit } from "@genkit-ai/core";
+import { genkit, z } from "genkit";
 import { gpt4o, openAI } from "genkitx-openai";
 
-configureGenkit({
+// Log debug output to the console.
+import { logger } from "genkit/logging";
+logger.setLogLevel("debug");
+
+const ai = genkit({
   // Use the OpenAI plugin with the provided API key.
   // Ensure the OPENAI_API_KEY environment variable is set before running.
   plugins: [openAI({ apiKey: process.env.OPENAI_API_KEY })],
-  // Log debug output to the console.
-  logLevel: "debug",
-  // Perform OpenTelemetry instrumentation and enable trace collection.
-  enableTracingAndMetrics: true,
 });
 ```
 
@@ -78,18 +78,16 @@ plugins: [openAI({ apiKey: process.env.OPENAI_API_KEY })],
 A "flow" is just a fancy way of saying the steps your app will take to do something cool. We'll show you how to set up a simple flow that you can build on as you learn more.
 
 ```typescript
-import { defineFlow } from "@genkit-ai/flow";
-import { generate } from "@genkit-ai/ai";
 import { gpt4o, openAI } from "genkitx-openai";
 
-export const summarizeFlow = defineFlow(
+export const summarizeFlow = ai.defineFlow(
   {
     name: "summarizeFlow",
     inputSchema: z.string(),
     outputSchema: z.string(),
   },
   async (content: string) => {
-    const llmResponse = await generate({
+    const llmResponse = await ai.generate({
       prompt: `Summarize the ${content} within 20 words.`,
       model: gpt4o, // Specify the model to use for generation
       tools: [],
@@ -98,7 +96,7 @@ export const summarizeFlow = defineFlow(
       },
     });
 
-    return llmResponse.text();
+    return llmResponse.text;
   }
 );
 ```
@@ -112,7 +110,7 @@ With your first flow ready, it's time to see it in action! We'll guide you throu
 To launch Firebase Genkit and explore its graphical user interface, execute one of the following commands in your terminal:
 
 ```bash
-$ genkit start -o
+$ genkit start -o -- npx tsx src/index.ts
 # or
 $ npm run genkit
 ```
@@ -154,11 +152,7 @@ Once you're comfortable with your basic flow, we'll help you add more to it. Thi
 The step involves defining a new tool, `webLoader`, which is responsible for fetching web content. This tool is a stateless function that takes a URL as input and returns the textual content of the webpage.
 
 ```typescript
-import * as z from "zod";
-
-import { defineTool, generate } from "@genkit-ai/ai";
-
-const webLoader = defineTool(
+const webLoader = ai,defineTool(
   {
     name: "webLoader",
     description: "Loads a webpage and returns the textual content.",
@@ -184,18 +178,16 @@ const webLoader = defineTool(
 After defining the `webLoader` tool, the next step is to incorporate it into your existing flow, `summarizeFlow`. This flow is designed to summarize web content, leveraging the `webLoader` to fetch the content based on a URL input.
 
 ```typescript
-import { defineFlow } from "@genkit-ai/flow";
-import { generate } from "@genkit-ai/ai";
 import { gpt4o, openAI } from "genkitx-openai";
 
-export const summarizeFlow = defineFlow(
+export const summarizeFlow = ai.defineFlow(
   {
     name: "summarizeFlow",
     inputSchema: z.string(),
     outputSchema: z.string(),
   },
   async (url: string) => {
-    const llmResponse = await generate({
+    const llmResponse = await ai.generate({
       prompt: `First, fetch this link: "${url}". Then, summarize the content within 20 words.`,
       model: gpt4o, // Specify the model to use for generation
       tools: [webLoader], // Include the webLoader tool defined earlier for fetching webpage content
@@ -204,7 +196,7 @@ export const summarizeFlow = defineFlow(
       },
     });
 
-    return llmResponse.text();
+    return llmResponse.text;
   }
 );
 ```
