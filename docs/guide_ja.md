@@ -12,9 +12,9 @@ https://medium.com/@yukinagae/your-first-guide-to-getting-started-with-firebase-
 
 https://github.com/yukinagae/genkit-sample
 
-このサンプルプロジェクトは、Firebase Genkit の動作を最も迅速に体験するための方法です。以下の手順に従って、すぐに使い始めましょう：
+このサンプルプロジェクトは、Firebase Genkit の動作を最も迅速に体験するための方法です。以下の手順に従って、すぐに使い始めましょう。
 
-リポジトリのクローン：まず、 [genkit-sample](https://github.com/yukinagae/genkit-sample) リポジトリをローカルマシンにクローンします。
+**リポジトリのクローン**：まず、 [genkit-sample](https://github.com/yukinagae/genkit-sample) リポジトリをローカルマシンにクローンします。
 
 ```bash
 $ git clone https://github.com/yukinagae/genkit-sample.git
@@ -107,7 +107,7 @@ export const summarizeFlow = defineFlow(
 );
 ```
 
-**注**: [Firebase Genkit - Get started](https://firebase.google.com/docs/genkit/get-started) に従うと、コードの最後に `startFlowsServer();` を呼び出す必要があるとされていますが、Genkit サーバーの起動はこの呼び出しがなくても正常に動作します。
+**注**: [Firebase Genkit - Get started](https://firebase.google.com/docs/genkit/get-started) に従うと、コードの最後に `startFlowsServer();` を呼び出す必要があるとされていますが、なぜか Genkit サーバーの起動はこの呼び出しがなくても正常に動作します。
 
 ### 3. Genkit サーバーの起動
 
